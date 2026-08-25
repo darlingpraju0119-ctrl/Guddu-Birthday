@@ -1,108 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#070208">
-<title>For Guddu ❤️</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Guddu! ❤️</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet" />
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0f0c1b;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --primary-pink: #ff4d79;
+      --accent-gold: #ffd166;
+      --text-main: #f8f9fa;
+      --text-muted: #c3c7db;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Floating background hearts */
+    .heart-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -10vh;
+      color: rgba(255, 77, 121, 0.2);
+      animation: floatUp 12s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* Section styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 77, 121, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 30px rgba(255, 77, 121, 0.4);
+    }
+
+    .name-highlight {
+      color: var(--primary-pink);
+      font-family: 'Caveat', cursive;
+      font-size: 3.6rem;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .subtext {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #ff4d79, #e60049);
+      color: #fff;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(255, 77, 121, 0.4);
+      margin-top: 1.5rem;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(255, 77, 121, 0.6);
+    }
+
+    /* Gift Box Interaction */
+    .gift-box {
+      font-size: 4.5rem;
+      cursor: pointer;
+      display: inline-block;
+      animation: bounce 2s infinite;
+      transition: transform 0.2s;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.15) rotate(5deg);
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-16px); }
+      60% { transform: translateY(-8px); }
+    }
+
+    .revealed-msg {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.2rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: var(--accent-gold);
+      animation: fadeIn 0.8s ease;
+    }
+
+    /* Note Text */
+    .note-body {
+      text-align: left;
+      font-size: 1.05rem;
+      color: #e2e8f0;
+      white-space: pre-line;
+      line-height: 1.9;
+    }
+
+    /* Memory Grid */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .memory-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #e6e9f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+      transition: all 0.3s ease;
+    }
+
+    .memory-card:hover {
+      background: rgba(255, 77, 121, 0.15);
+      border-color: var(--primary-pink);
+      transform: translateY(-4px);
+    }
+
+    /* Music Player */
+    .audio-player {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Wish Box */
+    .wish-box {
+      margin-top: 1.5rem;
+      display: none;
+      padding: 1.5rem;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 77, 121, 0.15), rgba(255, 209, 102, 0.15));
+      border: 1px solid var(--accent-gold);
+      font-size: 1.15rem;
+      color: #fff;
+      animation: fadeIn 0.8s ease;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 3rem;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-<div id="preloader"><div class="pre-heart">♥</div><p>One little surprise is loading...</p></div>
-<div class="grain"></div><div id="particles"></div>
 
-<section class="opening" id="opening">
-  <div class="opening-inner">
-    <div class="overline">THIS IS FOR SOMEONE SPECIAL</div>
-    <div class="typing" id="typing">Hey Guddu...</div>
-    <h1>There is something<br><span>I made for you.</span></h1>
-    <p class="opening-copy">Don't rush. Take your time and open every little surprise. ✨</p>
-    <button class="begin" id="begin">Begin the surprise <span>→</span></button>
-  </div>
-  <div class="scroll-cue">scroll slowly ↓</div>
-</section>
+  <!-- Floating Hearts Background -->
+  <div class="heart-bg" id="heartContainer"></div>
 
-<section class="birthday hidden-start" id="birthday">
-  <div class="section-inner center">
-    <div class="tiny">25 August 2026 • just a little birthday magic</div>
-    <h2>Happy Birthday<br><span>YUKTHI M</span></h2>
-    <p class="subtitle">My best friend. My Guddu. ❤️</p>
-    <div class="cake">
-      <div class="flame"></div><div class="candle"></div>
-      <div class="icing"></div><div class="cake-body"></div>
-      <div class="plate"></div>
-    </div>
-    <button class="gift" id="gift"><span class="gift-bow left"></span><span class="gift-bow right"></span><span class="gift-lid"></span><span class="gift-box"></span><span class="gift-ribbon"></span></button>
-    <p id="giftText" class="hint">Tap the gift when you're ready 🎁</p>
-  </div>
-</section>
+  <div class="container">
 
-<section class="story hidden-start" id="story">
-  <div class="section-inner">
-    <div class="tiny">A FRIENDSHIP NOTE</div>
-    <h2>Dear <span>Guddu</span>,</h2>
-    <div class="story-card">
-      <p>Some people enter your life and simply become part of the story.</p>
-      <p>You became one of my favourite chapters — full of stupid jokes, random conversations, crazy moments and memories I wouldn't trade for anything.</p>
-      <p>So today isn't only about wishing you a happy birthday. It's about celebrating the person you are and the friendship we have.</p>
-      <p class="highlight">And yes... you're stuck with me. 😂❤️</p>
-    </div>
-  </div>
-</section>
+    <!-- Intro Card -->
+    <section class="card">
+      <span class="tag">♥ One little surprise is loading...</span>
+      <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">THIS IS FOR SOMEONE SPECIAL</h2>
+      <p style="font-size: 1.2rem; margin-top: 1rem;">Hey <strong>Guddu</strong>...</p>
+      <p class="subtext">There is something I made for you.<br/>Don't rush. Take your time and open every little surprise. ✨</p>
+      <a href="#mainHero" class="btn">Begin the surprise →</a>
+      <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">scroll slowly ↓</div>
+    </section>
 
-<section class="memories hidden-start" id="memories">
-  <div class="section-inner center">
-    <div class="tiny">OUR MEMORIES</div>
-    <h2>Little moments,<br><span>big memories.</span></h2>
-    <p class="subtitle">Every photo has a story. Every story has you.</p>
-    <div class="memory-stage">
-      <figure class="memory-card card-a"><img src="assets/photo1.jpg"><figcaption>Us being us ❤️</figcaption></figure>
-      <figure class="memory-card card-b"><img src="assets/photo2.jpg"><figcaption>A moment worth keeping</figcaption></figure>
-      <figure class="memory-card card-c"><img src="assets/photo3.png"><figcaption>Beautiful memories</figcaption></figure>
-      <figure class="memory-card card-d"><img src="assets/photo4.png"><figcaption>That smile ✨</figcaption></figure>
-      <figure class="memory-card card-e"><img src="assets/photo5.png"><figcaption>Friendship looks good on us</figcaption></figure>
-    </div>
-  </div>
-</section>
+    <!-- Birthday Hero Card -->
+    <section class="card" id="mainHero">
+      <span class="tag">25 August 2026 • just a little birthday magic</span>
+      <h1 class="hero-title">Happy Birthday</h1>
+      <span class="name-highlight">YUKTHI M</span>
+      <p class="subtext" style="font-size: 1.2rem; margin-top: 0.5rem;">My best friend. My Guddu. ❤️</p>
+      
+      <div style="margin-top: 2rem;">
+        <div class="gift-box" onclick="revealGift()" title="Click to open!">🎁</div>
+        <p class="subtext">Tap the gift when you're ready</p>
+        <div class="revealed-msg" id="giftMsg">
+          ✨ You are truly one of a kind, Guddu! May your day be filled with endless smiles and lots of cake! 🎂✨
+        </div>
+      </div>
+    </section>
 
-<section class="anthem hidden-start" id="anthem">
-  <div class="music-card">
-    <div class="vinyl"><span>♪</span></div>
-    <div class="music-info">
-      <div class="tiny">OUR FRIENDSHIP ANTHEM</div>
+    <!-- Friendship Note -->
+    <section class="card">
+      <span class="tag">A FRIENDSHIP NOTE</span>
+      <h2 style="margin-bottom: 1.5rem;">Dear Guddu,</h2>
+      <div class="note-body">
+Some people enter your life and simply become part of the story.
+
+You became one of my favourite chapters — full of stupid jokes, random conversations, crazy moments and memories I wouldn't trade for anything.
+
+So today isn't only about wishing you a happy birthday. It's about celebrating the person you are and the friendship we have.
+
+And yes... you're stuck with me. 😂❤️
+      </div>
+    </section>
+
+    <!-- Our Memories Grid -->
+    <section class="card">
+      <span class="tag">OUR MEMORIES</span>
+      <h2>Little moments, big memories.</h2>
+      <p class="subtext">Every photo has a story. Every story has you.</p>
+
+      <div class="memory-grid">
+        <div class="memory-card">Us being us ❤️</div>
+        <div class="memory-card">A moment worth keeping</div>
+        <div class="memory-card">Beautiful memories</div>
+        <div class="memory-card">That smile ✨</div>
+        <div class="memory-card" style="grid-column: 1 / -1;">Friendship looks good on us</div>
+      </div>
+    </section>
+
+    <!-- Friendship Anthem -->
+    <section class="card">
+      <span class="tag">♪ OUR FRIENDSHIP ANTHEM</span>
       <h2>Tera Yaar Hoon Main</h2>
-      <p>Because some friendships are better explained by a song.</p>
-    </div>
-    <a class="play" href="https://www.youtube.com/watch?v=EatzcaVJRMs" target="_blank" rel="noopener">▶ Play</a>
+      <p class="subtext">Because some friendships are better explained by a song.</p>
+      
+      <div class="audio-player">
+        <!-- Replace src with your audio file (e.g. song.mp3) if you host it in your repo -->
+        <audio id="anthemAudio" controls style="width: 100%; max-width: 320px; border-radius: 30px;">
+          <source src="song.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </section>
+
+    <!-- Words I Really Mean -->
+    <section class="card">
+      <span class="tag">A FEW WORDS I REALLY MEAN</span>
+      <h2 style="margin-bottom: 1.5rem;">For you, Guddu</h2>
+      <div class="note-body">
+I hope you always remember how loved, valued and special you are.
+
+I hope this year gives you reasons to laugh until your stomach hurts, people who stay when life gets difficult, and dreams that slowly turn into reality.
+
+Keep being the same crazy, caring and wonderful person you are.
+
+And whenever life gets a little too serious, remember that your best friend is probably somewhere ready to make it worse. 😂
+
+Happy Birthday, Guddu. ❤️
+
+<strong>Always your best friend.</strong>
+      </div>
+    </section>
+
+    <!-- Make a Wish -->
+    <section class="card">
+      <span class="tag">ONE LAST SURPRISE</span>
+      <h2>Make a wish, Guddu.</h2>
+      <p class="subtext">Close your eyes for a second, make your wish, and press the button.</p>
+
+      <button class="btn" onclick="makeWish()">✨ Make my wish ✨</button>
+
+      <div class="wish-box" id="wishText">
+        May this year bring you more happiness than you can count, more memories than you can remember, and every good thing you deserve. ❤️
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      Made especially for <strong>YUKTHI M</strong> • by her best friend ❤️
+    </footer>
+
   </div>
-</section>
 
-<section class="letter hidden-start" id="letter">
-  <div class="paper">
-    <div class="tiny">A FEW WORDS I REALLY MEAN</div>
-    <h2>For you, <span>Guddu</span></h2>
-    <p>I hope you always remember how loved, valued and special you are.</p>
-    <p>I hope this year gives you reasons to laugh until your stomach hurts, people who stay when life gets difficult, and dreams that slowly turn into reality.</p>
-    <p>Keep being the same crazy, caring and wonderful person you are.</p>
-    <p>And whenever life gets a little too serious, remember that your best friend is probably somewhere ready to make it worse. 😂</p>
-    <p class="closing">Happy Birthday, Guddu. ❤️</p>
-    <div class="signature">Always your best friend.</div>
-  </div>
-</section>
+  <script>
+    // Floating hearts animation background
+    const heartContainer = document.getElementById('heartContainer');
+    const hearts = ['❤️', '💖', '✨', '🌸', '💕'];
+    
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('floating-heart');
+      heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 14) + 'px';
+      heart.style.animationDuration = (Math.random() * 6 + 7) + 's';
+      heartContainer.appendChild(heart);
 
-<section class="final hidden-start" id="final">
-  <div class="tiny">ONE LAST SURPRISE</div>
-  <h2>Make a wish,<br><span>Guddu.</span></h2>
-  <p>Close your eyes for a second, make your wish, and press the button.</p>
-  <button class="wish-btn" id="wishBtn">✨ Make my wish ✨</button>
-  <div id="wishMessage" class="wish-message">May this year bring you more happiness than you can count, more memories than you can remember, and every good thing you deserve. ❤️</div>
-  <div class="final-hearts" id="finalHearts"></div>
-</section>
+      setTimeout(() => {
+        heart.remove();
+      }, 12000);
+    }
+    setInterval(createHeart, 600);
 
-<footer>Made especially for YUKTHI M • by her best friend ❤️</footer>
-<script src="script.js"></script>
+    // Gift Box reveal
+    function revealGift() {
+      const msg = document.getElementById('giftMsg');
+      msg.style.display = 'block';
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Make a wish confetti burst
+    function makeWish() {
+      const wishBox = document.getElementById('wishText');
+      wishBox.style.display = 'block';
+      
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.7 }
+      });
+      
+      setTimeout(() => {
+        confetti({
+          particleCount: 100,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 100,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+      }, 300);
+    }
+  </script>
 </body>
 </html>
