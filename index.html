@@ -76,7 +76,6 @@
       padding: 2.5rem 1.5rem 5rem;
     }
 
-    /* Section styling */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -132,7 +131,6 @@
       margin-top: 0.8rem;
     }
 
-    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -156,7 +154,7 @@
       box-shadow: 0 12px 28px rgba(255, 77, 121, 0.6);
     }
 
-    /* Gift Box Interaction */
+    /* Gift Box */
     .gift-box {
       font-size: 4.5rem;
       cursor: pointer;
@@ -187,7 +185,6 @@
       animation: fadeIn 0.8s ease;
     }
 
-    /* Note Text */
     .note-body {
       text-align: left;
       font-size: 1.05rem;
@@ -196,43 +193,90 @@
       line-height: 1.9;
     }
 
-    /* Memory Grid */
+    /* Photos Grid */
     .memory-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.8rem;
     }
 
     .memory-card {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
-      padding: 1.5rem 1rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #e6e9f5;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100px;
       transition: all 0.3s ease;
     }
 
-    .memory-card:hover {
-      background: rgba(255, 77, 121, 0.15);
-      border-color: var(--primary-pink);
-      transform: translateY(-4px);
+    .memory-card.featured {
+      grid-column: 1 / -1;
+    }
+
+    .memory-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .memory-card.featured img {
+      height: 280px;
+    }
+
+    .memory-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .memory-caption {
+      padding: 0.9rem 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f1f3f9;
+      text-align: center;
     }
 
     /* Music Player */
-    .audio-player {
-      margin-top: 1.5rem;
+    .audio-player-box {
+      margin-top: 1.8rem;
+      padding: 1.5rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
+    }
+
+    .play-btn {
+      background: linear-gradient(135deg, #ff4d79, #e60049);
+      color: #fff;
+      border: none;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      font-size: 1.6rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(255, 77, 121, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.08);
+    }
+
+    audio {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 30px;
     }
 
     /* Wish Box */
@@ -253,7 +297,6 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-top: 3rem;
-      letter-spacing: 0.5px;
     }
 
     @keyframes fadeIn {
@@ -310,30 +353,53 @@ And yes... you're stuck with me. 😂❤️
       </div>
     </section>
 
-    <!-- Our Memories Grid -->
+    <!-- Our Memories Grid (5 Images) -->
     <section class="card">
       <span class="tag">OUR MEMORIES</span>
       <h2>Little moments, big memories.</h2>
       <p class="subtext">Every photo has a story. Every story has you.</p>
 
       <div class="memory-grid">
-        <div class="memory-card">Us being us ❤️</div>
-        <div class="memory-card">A moment worth keeping</div>
-        <div class="memory-card">Beautiful memories</div>
-        <div class="memory-card">That smile ✨</div>
-        <div class="memory-card" style="grid-column: 1 / -1;">Friendship looks good on us</div>
+        <!-- Photo 1 -->
+        <div class="memory-card">
+          <img src="photo1.jpg" alt="Us being us" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&auto=format&fit=crop&q=80'" />
+          <div class="memory-caption">Us being us ❤️</div>
+        </div>
+
+        <!-- Photo 2 -->
+        <div class="memory-card">
+          <img src="photo2.jpg" alt="A moment worth keeping" onerror="this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&auto=format&fit=crop&q=80'" />
+          <div class="memory-caption">A moment worth keeping</div>
+        </div>
+
+        <!-- Photo 3 -->
+        <div class="memory-card">
+          <img src="photo3.jpg" alt="Beautiful memories" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&auto=format&fit=crop&q=80'" />
+          <div class="memory-caption">Beautiful memories</div>
+        </div>
+
+        <!-- Photo 4 -->
+        <div class="memory-card">
+          <img src="photo4.jpg" alt="That smile" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80'" />
+          <div class="memory-caption">That smile ✨</div>
+        </div>
+
+        <!-- Photo 5 (Featured full-width) -->
+        <div class="memory-card featured">
+          <img src="photo5.jpg" alt="Friendship looks good on us" onerror="this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&auto=format&fit=crop&q=80'" />
+          <div class="memory-caption">Friendship looks good on us ❤️</div>
+        </div>
       </div>
     </section>
 
-    <!-- Friendship Anthem -->
+    <!-- Friendship Anthem Audio -->
     <section class="card">
       <span class="tag">♪ OUR FRIENDSHIP ANTHEM</span>
       <h2>Tera Yaar Hoon Main</h2>
       <p class="subtext">Because some friendships are better explained by a song.</p>
       
-      <div class="audio-player">
-        <!-- Replace src with your audio file (e.g. song.mp3) if you host it in your repo -->
-        <audio id="anthemAudio" controls style="width: 100%; max-width: 320px; border-radius: 30px;">
+      <div class="audio-player-box">
+        <audio id="anthemAudio" controls preload="auto">
           <source src="song.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
@@ -380,7 +446,7 @@ Happy Birthday, Guddu. ❤️
   </div>
 
   <script>
-    // Floating hearts animation background
+    // Floating hearts
     const heartContainer = document.getElementById('heartContainer');
     const hearts = ['❤️', '💖', '✨', '🌸', '💕'];
     
@@ -399,10 +465,9 @@ Happy Birthday, Guddu. ❤️
     }
     setInterval(createHeart, 600);
 
-    // Gift Box reveal
+    // Gift reveal
     function revealGift() {
-      const msg = document.getElementById('giftMsg');
-      msg.style.display = 'block';
+      document.getElementById('giftMsg').style.display = 'block';
       confetti({
         particleCount: 80,
         spread: 70,
@@ -412,8 +477,7 @@ Happy Birthday, Guddu. ❤️
 
     // Make a wish confetti burst
     function makeWish() {
-      const wishBox = document.getElementById('wishText');
-      wishBox.style.display = 'block';
+      document.getElementById('wishText').style.display = 'block';
       
       confetti({
         particleCount: 150,
